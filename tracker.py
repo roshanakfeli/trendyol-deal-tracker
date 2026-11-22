@@ -1,5 +1,8 @@
 
 import json
+import os
+import urllib.parse
+import urllib.request
 from pathlib import Path
 
 MIN_DISCOUNT = 30
@@ -45,20 +48,65 @@ def find_best_deals(products):
     return sorted(deals, key=lambda item: item["current_price"])
 
 
+def build_message(deals):
+    lines = [
+        "🛍️ Trendyol Deal Tracker",
+        "📢 گزارش آزمایشی تخفیف‌ها",
+        ""
+    ]
+
+    if not deals:
+        lines.append("هیچ محصول مناسبی پیدا نشد.")
+        return "\n".join(lines)
+
+    for index, product in enumerate(deals, start=1):
+        lines.extend([
+            f"{index}. {product['name']}",
+            f"🏷️ برند: {product['brand']}",
+            f"💰 قیمت: {product['current_price']} TRY",
+            f"🔥 تخفیف: {product['discount']}%",
+            f"📏 سایز: {product['size'] or 'بدون سایز'}",
+            f"🔗 لینک: {product['url']}",
+            ""
+        ])
+
+    return "\n".join(lines)
+
+
+def send_telegram_message(message):
+    token = os.environ["TELEGRAM_BOT_TOKEN"]
+    chat_id = os.environ["TELEGRAM_CHAT_ID"]
+
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+
+    data = urllib.parse.urlencode({
+        "chat_id": chat_id,
+        "text": message
+    }).encode("utf-8")
+
+    request = urllib.request.Request(
+        url,
+        data=data,
+        method="POST"
+    )
+
+    with urllib.request.urlopen(request, timeout=30) as response:
+        result = json.load(response)
+
+    if not result.get("ok"):
+        raise RuntimeError("Telegram message failed")
+
+    print("Telegram message sent successfully!")
+
+
 def main():
     products = load_products()
     deals = find_best_deals(products)
 
-    print(f"Found {len(deals)} matching deals:\n")
+    print(f"Found {len(deals)} matching deals")
 
-    for product in deals:
-        print(f"Product: {product['name']}")
-        print(f"Brand: {product['brand']}")
-        print(f"Price: {product['current_price']} TRY")
-        print(f"Discount: {product['discount']}%")
-        print(f"Size: {product['size']}")
-        print(f"Link: {product['url']}")
-        print("-" * 40)
+    message = build_message(deals)
+    send_telegram_message(message)
 
 
 if __name__ == "__main__":
