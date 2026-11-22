@@ -20,5 +20,10 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Check discounts
+     
+      - name: Check discounts and send Telegram report
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python tracker.py
+
