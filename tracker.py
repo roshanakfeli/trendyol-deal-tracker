@@ -6,67 +6,95 @@ import urllib.request
 from pathlib import Path
 
 MIN_DISCOUNT = 30
-SHOE_CATEGORIES = {"boots", "shoes"}
 ALLOWED_SHOE_SIZES = {"38.5", "39"}
 
+BASE_URL = "https://www.trendyol.com"
 
-def load_products():
-    file_path = Path(__file__).with_name("products.json")
+
+def load_product():
+    file_path = Path(__file__).with_name("sample_product.json")
 
     with file_path.open("r", encoding="utf-8") as file:
         return json.load(file)
 
 
-def calculate_discount(original_price, current_price):
+def calculate_discount(original_price, final_price):
     if original_price <= 0:
         return 0
 
-    return (original_price - current_price) / original_price * 100
+    return round(
+        (original_price - final_price) / original_price * 100,
+        1
+    )
 
 
-def find_best_deals(products):
-    deals = []
+def analyze_product(product):
+    price = product["price"]
+    final_price = price["discountedPrice"]
 
-    for product in products:
-        original_price = product["original_price"]
-        current_price = product["current_price"]
+    # Promotional reference price
+    reference_price = product["recommendedRetailPrice"][
+        "sellingPriceNumerized"
+    ]
 
-        discount = calculate_discount(original_price, current_price)
+    discount = calculate_discount(reference_price, final_price)
 
-        if discount < MIN_DISCOUNT:
-            continue
+    size = str(product.get("variantValue", ""))
+    is_sold_out = product.get("tagStockBar", {}).get(
+        "isSoldOut", False
+    )
 
-        if product["category"] in SHOE_CATEGORIES:
-            if str(product["size"]) not in ALLOWED_SHOE_SIZES:
-                continue
+    category_id = product.get("category", {}).get("id")
+    shoe_category_ids = {408}
 
-        deals.append({
-            **product,
-            "discount": round(discount, 1)
-        })
+    if category_id in shoe_category_ids:
+        if size not in ALLOWED_SHOE_SIZES:
+            return None
 
-    return sorted(deals, key=lambda item: item["current_price"])
+    if is_sold_out:
+        return None
+
+    if discount < MIN_DISCOUNT:
+        return None
+
+    product_url = BASE_URL + product["url"]
+
+    return {
+        "id": product["id"],
+        "name": product["name"],
+        "brand": product["brand"],
+        "size": size,
+        "original_price": reference_price,
+        "final_price": final_price,
+        "discount": discount,
+        "discount_type": product.get(
+            "binaryPrice", {}
+        ).get("discountType", "unknown"),
+        "url": product_url,
+    }
 
 
 def build_message(deals):
     lines = [
         "🛍️ Trendyol Deal Tracker",
-        "📢 گزارش آزمایشی تخفیف‌ها",
+        "🧪 گزارش آزمایشی داده واقعی",
         ""
     ]
 
     if not deals:
-        lines.append("هیچ محصول مناسبی پیدا نشد.")
-        return "\n".join(lines)
+        return "\n".join(lines + [
+            "محصولی با شرایط موردنظر پیدا نشد."
+        ])
 
-    for index, product in enumerate(deals, start=1):
+    for index, deal in enumerate(deals, start=1):
         lines.extend([
-            f"{index}. {product['name']}",
-            f"🏷️ برند: {product['brand']}",
-            f"💰 قیمت: {product['current_price']} TRY",
-            f"🔥 تخفیف: {product['discount']}%",
-            f"📏 سایز: {product['size'] or 'بدون سایز'}",
-            f"🔗 لینک: {product['url']}",
+            f"{index}. {deal['brand']} - {deal['name']}",
+            f"📏 سایز: {deal['size'] or 'بدون سایز'}",
+            f"💰 قیمت قبلی: {deal['original_price']} TL",
+            f"✅ قیمت نهایی: {deal['final_price']} TL",
+            f"🔥 تخفیف تبلیغاتی: {deal['discount']}%",
+            f"🏷️ نوع تخفیف: {deal['discount_type']}",
+            f"🔗 {deal['url']}",
             ""
         ])
 
@@ -100,8 +128,11 @@ def send_telegram_message(message):
 
 
 def main():
-    products = load_products()
-    deals = find_best_deals(products)
+    product = load_product()
+    deal = analyze_product(product)
+
+    deals = [deal] if deal else []
+    deals.sort(key=lambda item: item["final_price"])
 
     print(f"Found {len(deals)} matching deals")
 
