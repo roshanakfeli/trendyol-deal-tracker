@@ -1,0 +1,310 @@
+{
+  "boutiqueId": 61,
+  "brand": "Riccon",
+  "webBrands": [
+    {
+      "id": 110359,
+      "name": "Riccon"
+    }
+  ],
+  "brandId": 93397,
+  "campaignId": 61,
+  "merchantId": 180000,
+  "category": {
+    "name": "Çizme",
+    "id": 408
+  },
+  "contentId": 135941803,
+  "discount": {
+    "discountName": ""
+  },
+  "id": 135941803,
+  "image": "https://cdn.dsmcdn.com/mnresize/400/-/ty162/product/media/images/20210825/16/122462442/233075904/1/1_org_zoom.jpg",
+  "images": [
+    "https://cdn.dsmcdn.com/mnresize/400/-/ty162/product/media/images/20210825/16/122462442/233075904/1/1_org_zoom.jpg",
+    "https://cdn.dsmcdn.com/mnresize/400/-/ty162/product/media/images/20210825/16/122462442/233075904/2/2_org_zoom.jpg",
+    "https://cdn.dsmcdn.com/mnresize/400/-/ty162/product/media/images/20210825/16/122462442/233075904/3/3_org_zoom.jpg",
+    "https://cdn.dsmcdn.com/mnresize/400/-/ty163/product/media/images/20210825/16/122462442/233075904/4/4_org_zoom.jpg",
+    "https://cdn.dsmcdn.com/mnresize/400/-/ty164/product/media/images/20210825/16/122462442/233075904/5/5_org_zoom.jpg"
+  ],
+  "itemNumber": 233093233,
+  "listingId": "f86bc0282617c355ed46303aadb06a66",
+  "name": "Siyah Cilt Kadın Çizme 0012360",
+  "price": {
+    "old": 0,
+    "oldText": "0",
+    "currency": "TL",
+    "current": 1872,
+    "currentText": "1.872",
+    "originalPrice": 1216.8,
+    "originalPriceText": "1.216,80",
+    "discountedPrice": 1123.2,
+    "discountedPriceText": "1.123,20",
+    "currencySymbol": "TL"
+  },
+  "ratingScore": {
+    "averageRating": 4.246845251272969,
+    "totalCount": 13551
+  },
+  "stamps": {},
+  "tagDetails": [
+    {
+      "displayName": "Süper Fırsat Ürünü",
+      "hasStamp": true,
+      "tag": "super_card",
+      "tagId": 13685,
+      "tagType": "SuperCardBadge"
+    },
+    {
+      "displayName": "Bugün Fiyatı Düşenler",
+      "hasStamp": true,
+      "tag": "daily_discount",
+      "tagId": 6751,
+      "tagType": "DailyDiscountBadge"
+    },
+    {
+      "displayName": "kategori_encoksatanlar",
+      "hasStamp": true,
+      "tag": "kategori_encoksatanlar",
+      "tagId": 1715
+    },
+    {
+      "displayName": "Hesaplı Ürünler",
+      "hasStamp": true,
+      "tag": "hesapli_urunler",
+      "tagId": 4903,
+      "tagType": "AffordableProducts"
+    },
+    {
+      "displayName": "Peşin Fiyatına 3 Taksit",
+      "hasStamp": true,
+      "tag": "installment_pft3",
+      "tagId": 4905,
+      "tagType": "InstallmentBadge"
+    },
+    {
+      "displayName": "Son 10 Günün En Düşük Fiyatı",
+      "hasStamp": true,
+      "tag": "lowest_price_duration_10",
+      "tagId": 8581,
+      "tagType": "LowestPrice"
+    },
+    {
+      "displayName": "",
+      "hasStamp": true,
+      "tag": "eventdeal",
+      "tagId": 9637,
+      "tagType": "EventDealBadge"
+    },
+    {
+      "displayName": "Çok Avantajlı Ürün",
+      "hasStamp": true,
+      "tag": "turuncu_kampanya_urunu",
+      "tagId": 4898,
+      "tagType": "CampaignBadge"
+    },
+    {
+      "displayName": "Geçen Yıldan Düşük Fiyatlar",
+      "hasStamp": true,
+      "tag": "lowerfromlastyear",
+      "tagId": 26674,
+      "tagType": "LastYearSalesPrice"
+    }
+  ],
+  "badges": {
+    "unknownBadge": {
+      "title": "Hızlı Satıcı",
+      "type": "FAST_SELLER"
+    }
+  },
+  "stock": {},
+  "url": "/riccon/siyah-cilt-kadin-cizme-0012360-p-135941803?boutiqueId=61&merchantId=180000",
+  "placeholder": "https://cdn.dsmcdn.com/sfweb-search/images/trendyol-product-card-placeholder_1759241898120.svg",
+  "isSexualContent": false,
+  "hasCollectableCoupon": true,
+  "emptyRating": false,
+  "groupId": 118383149,
+  "dsmColor": "Siyah Cilt",
+  "variantValue": "39",
+  "variantId": "39",
+  "isOneSize": false,
+  "hasReviewPhoto": true,
+  "cleanUrlFragments": {
+    "brandName": "Riccon",
+    "name": "Siyah Cilt Kadın Çizme 0012360",
+    "webBrandName": "Riccon"
+  },
+  "socialProof": [
+    {
+      "key": "favoriteCount",
+      "value": "381K"
+    },
+    {
+      "key": "orderCount",
+      "value": "400+"
+    }
+  ],
+  "promotions": [
+    {
+      "id": 31239059,
+      "shortName": "İndirim Kodu",
+      "name": "Kod: RC100 - 1500 TL'ye 100 TL İndirim",
+      "discountType": 2
+    },
+    {
+      "id": 31680504,
+      "shortName": "2. Ürün %10",
+      "name": "2. Ürüne %10 İndirim",
+      "discountType": 2
+    }
+  ],
+  "freeCargo": true,
+  "recommendedRetailPrice": {
+    "sellingPrice": "1.872 TL",
+    "sellingPriceWithoutCurrency": "1.872",
+    "sellingPriceNumerized": 1872,
+    "discountedPromotionPrice": "1.123,20 TL",
+    "discountedPromotionPriceWithoutCurrency": "1.123,20",
+    "discountedPromotionPriceNumerized": 1123.2,
+    "discountedPromotionPricePercentage": "-%40",
+    "promotionDiscountPercentage": 40,
+    "suggestedPrice": null,
+    "suggestedPriceWithoutCurrency": null,
+    "suggestedPriceNumerized": null,
+    "currency": "TL"
+  },
+  "binaryPrice": {
+    "salePrice": "1.123,20 TL",
+    "salePriceWihoutCurrency": "1.123,20",
+    "strikethroughPrice": "1.872",
+    "strikethroughPriceType": "sellingPrice",
+    "discountPercentage": "-%40",
+    "currency": "TL",
+    "discountType": "basketPromotion"
+  },
+  "discountBoxType": 2,
+  "isChoiceNNStoreProduct": false,
+  "choiceNNPrice": {
+    "priceWithoutCurrency": "1.123,20",
+    "lowestRecentPriceWithoutCurrency": "1.872",
+    "currency": "TL"
+  },
+  "hasFlashSaleTag": false,
+  "hasFastDeliveryTag": false,
+  "priceLabels": [
+    {
+      "name": "Sepette %40 İndirim",
+      "type": 2
+    },
+    {
+      "name": "TY Plus",
+      "type": 4,
+      "value": "1123.20"
+    }
+  ],
+  "tagStockBar": {
+    "isSoldOut": false
+  },
+  "appPrice": {
+    "oldPrice": "1.123,20",
+    "newPrice": "1.108,20",
+    "integerPart": "1",
+    "decimalPart": "108,20",
+    "discountPercentage": 1,
+    "currency": "TL",
+    "codeName": "HELLO40",
+    "discountLimit": 38
+  },
+  "hasCodePromo": false,
+  "cardType": "PRODUCT",
+  "advertType": "DEFAULT",
+  "advert": {
+    "adScore": 0,
+    "adScores": {},
+    "advertId": "",
+    "advertSlot": 0,
+    "cpc": 0,
+    "eCpc": 0,
+    "minCpc": 0,
+    "sortingScore": 0,
+    "oCpc": 0
+  },
+  "productCardAttributes": {
+    "attributes": [
+      {
+        "attributeId": 14,
+        "attributeName": "Materyal",
+        "attributeValueId": 105,
+        "attributeValueName": "Suni Deri",
+        "isEnergyClass": false
+      },
+      {
+        "attributeId": 21,
+        "attributeName": "Topuk Boyu",
+        "attributeValueId": 4024,
+        "attributeValueName": "Kısa Topuklu (1- 4 cm)",
+        "isEnergyClass": false
+      }
+    ],
+    "isEnergyClass": false
+  },
+  "stripBadge": {
+    "type": "SUPER_PROMO",
+    "title": "Süper Kampanya",
+    "color": "linear-gradient(90deg, #2D62FF 0%, #560090 100%)"
+  },
+  "simplifiedBadges": [
+    {
+      "type": "FREE_CARGO",
+      "title": "Kargo Bedava",
+      "icon": "https://cdn.dsmcdn.com/sfweb-search/images/icon_1746526403138.svg",
+      "color": "#666"
+    },
+    {
+      "type": "COLLECTABLE_COUPON",
+      "title": "Kupon Fırsatı",
+      "icon": "https://cdn.dsmcdn.com/sfweb-search/images/icon_1746526381249.svg",
+      "color": "#FF4988"
+    }
+  ],
+  "hasOfficialSellerBadge": true,
+  "singlePrice": {
+    "salePrice": "1.123,20 TL",
+    "salePriceWihoutCurrency": "1.123,20",
+    "salePriceNumeric": 1123.2,
+    "strikethroughPrice": "1.872 TL",
+    "strikethroughPriceWithoutCurrency": "1.872",
+    "strikethroughPriceNumeric": 1872,
+    "discountBadgeData": {
+      "showBadge": true,
+      "discountPercentage": "-%40",
+      "showFlameIcon": true
+    },
+    "discountPercentage": "-%40",
+    "currency": "TL",
+    "componentType": "BASKET_PROMO",
+    "storefrontType": "TR",
+    "priceLabels": {
+      "2": {
+        "name": "Sepette %40 İndirim"
+      },
+      "4": {
+        "name": "TY Plus",
+        "value": "1123.20",
+        "price": "1.123,20 TL",
+        "priceWithoutCurrency": "1.123,20"
+      }
+    }
+  },
+  "singlePromotion": {
+    "id": 31239059,
+    "shortName": "İndirim Kodu",
+    "name": "Kod: RC100 - 1500 TL'ye 100 TL İndirim",
+    "discountType": 2
+  },
+  "rushDelivery": false,
+  "sameDayShipping": false,
+  "nextDayDelivery": true,
+  "tomorrowShipping": false,
+  "dealBadge": "super-deal"
+}
