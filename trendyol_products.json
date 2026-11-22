@@ -1,0 +1,23 @@
+[
+  {
+    "id": 135941803,
+    "brand": "Riccon",
+    "name": "Siyah Cilt Kadın Çizme 0012360",
+    "category": {
+      "name": "Çizme",
+      "id": 408
+    },
+    "variantValue": "39",
+    "price": {
+      "current": 1872,
+      "discountedPrice": 1123.2
+    },
+    "binaryPrice": {
+      "discountType": "basketPromotion"
+    },
+    "tagStockBar": {
+      "isSoldOut": false
+    },
+    "url": "/riccon/siyah-cilt-kadin-cizme-0012360-p-135941803"
+  }
+]
