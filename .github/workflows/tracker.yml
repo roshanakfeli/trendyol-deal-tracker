@@ -5,7 +5,11 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: trendyol-price-tracker
+  cancel-in-progress: false
 
 jobs:
   check-deals:
@@ -14,16 +18,30 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-     
-      - name: Check discounts and send Telegram report
+      - name: Check prices and send alerts
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python tracker.py
 
+      - name: Save updated price history
+        run: |
+          if git diff --quiet -- price_history.json; then
+            echo "No history changes to commit"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add price_history.json
+          git commit -m "Update tracked product prices"
+          git push
