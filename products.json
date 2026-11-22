@@ -1,0 +1,43 @@
+
+[
+  {
+    "id": 1,
+    "name": "Women's Ankle Boots",
+    "category": "boots",
+    "brand": "Test Brand A",
+    "original_price": 2500,
+    "current_price": 1250,
+    "size": "39",
+    "url": "https://www.trendyol.com/"
+  },
+  {
+    "id": 2,
+    "name": "Women's Winter Coat",
+    "category": "coats",
+    "brand": "Test Brand B",
+    "original_price": 4000,
+    "current_price": 3200,
+    "size": "M",
+    "url": "https://www.trendyol.com/"
+  },
+  {
+    "id": 3,
+    "name": "Women's Handbag",
+    "category": "bags",
+    "brand": "Test Brand C",
+    "original_price": 1800,
+    "current_price": 900,
+    "size": null,
+    "url": "https://www.trendyol.com/"
+  },
+  {
+    "id": 4,
+    "name": "Women's Sneakers",
+    "category": "shoes",
+    "brand": "Test Brand D",
+    "original_price": 3000,
+    "current_price": 2100,
+    "size": "38",
+    "url": "https://www.trendyol.com/"
+  }
+]
