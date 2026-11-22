@@ -8,14 +8,26 @@ from pathlib import Path
 MIN_DISCOUNT = 30
 ALLOWED_SHOE_SIZES = {"38.5", "39"}
 
+SHOE_CATEGORIES = {
+    "Çizme", "Bot", "Ayakkabı", "Sneaker",
+    "Spor Ayakkabı", "Topuklu Ayakkabı"
+}
+
 BASE_URL = "https://www.trendyol.com"
 
 
-def load_product():
-    file_path = Path(__file__).with_name("sample_product.json")
+def load_products():
+    file_path = Path(__file__).with_name(
+        "trendyol_products.json"
+    )
 
     with file_path.open("r", encoding="utf-8") as file:
-        return json.load(file)
+        products = json.load(file)
+
+    if not isinstance(products, list):
+        raise ValueError("Expected a list of products")
+
+    return products
 
 
 def calculate_discount(original_price, final_price):
@@ -29,71 +41,106 @@ def calculate_discount(original_price, final_price):
 
 
 def analyze_product(product):
-    price = product["price"]
-    final_price = price["discountedPrice"]
+    category = product.get("category", {}).get("name", "")
 
-    # Promotional reference price
-    reference_price = product["recommendedRetailPrice"][
-        "sellingPriceNumerized"
-    ]
+    size = str(product.get("variantValue") or "")
 
-    discount = calculate_discount(reference_price, final_price)
-
-    size = str(product.get("variantValue", ""))
-    is_sold_out = product.get("tagStockBar", {}).get(
-        "isSoldOut", False
-    )
-
-    category_id = product.get("category", {}).get("id")
-    shoe_category_ids = {408}
-
-    if category_id in shoe_category_ids:
+    if category in SHOE_CATEGORIES:
         if size not in ALLOWED_SHOE_SIZES:
             return None
 
-    if is_sold_out:
+    if product.get("tagStockBar", {}).get("isSoldOut") is True:
         return None
+
+    price = product.get("price", {})
+
+    original_price = price.get("current")
+    final_price = price.get("discountedPrice")
+
+    if original_price is None or final_price is None:
+        return None
+
+    original_price = float(original_price)
+    final_price = float(final_price)
+
+    discount = calculate_discount(
+        original_price, final_price
+    )
 
     if discount < MIN_DISCOUNT:
         return None
 
-    product_url = BASE_URL + product["url"]
+    relative_url = product.get("url", "")
+
+    if not relative_url:
+        return None
+
+    if relative_url.startswith("https://"):
+        url = relative_url
+    else:
+        url = BASE_URL + "/" + relative_url.lstrip("/")
 
     return {
         "id": product["id"],
         "name": product["name"],
-        "brand": product["brand"],
+        "brand": product.get("brand", "Unknown"),
+        "category": category,
         "size": size,
-        "original_price": reference_price,
+        "original_price": original_price,
         "final_price": final_price,
         "discount": discount,
         "discount_type": product.get(
             "binaryPrice", {}
         ).get("discountType", "unknown"),
-        "url": product_url,
+        "url": url,
     }
+
+
+def find_best_deals(products):
+    unique_deals = {}
+
+    for product in products:
+        deal = analyze_product(product)
+
+        if deal is None:
+            continue
+
+        key = (deal["id"], deal["size"])
+
+        previous = unique_deals.get(key)
+
+        if previous is None or (
+            deal["final_price"] < previous["final_price"]
+        ):
+            unique_deals[key] = deal
+
+    return sorted(
+        unique_deals.values(),
+        key=lambda item: item["final_price"]
+    )
 
 
 def build_message(deals):
     lines = [
         "🛍️ Trendyol Deal Tracker",
-        "🧪 گزارش آزمایشی داده واقعی",
+        "🧪 گزارش آزمایشی محصولات",
+        f"🔥 حداقل تخفیف: {MIN_DISCOUNT}%",
+        f"📦 تعداد محصولات: {len(deals)}",
         ""
     ]
 
     if not deals:
-        return "\n".join(lines + [
-            "محصولی با شرایط موردنظر پیدا نشد."
-        ])
+        lines.append("محصول مناسبی پیدا نشد.")
 
     for index, deal in enumerate(deals, start=1):
         lines.extend([
             f"{index}. {deal['brand']} - {deal['name']}",
-            f"📏 سایز: {deal['size'] or 'بدون سایز'}",
-            f"💰 قیمت قبلی: {deal['original_price']} TL",
-            f"✅ قیمت نهایی: {deal['final_price']} TL",
-            f"🔥 تخفیف تبلیغاتی: {deal['discount']}%",
-            f"🏷️ نوع تخفیف: {deal['discount_type']}",
+            f"📂 دسته: {deal['category']}",
+            f"📏 سایز: {deal['size'] or 'نامشخص'}",
+            f"💰 قیمت مرجع: {deal['original_price']:,.2f} TL",
+            f"✅ قیمت تخفیفی: {deal['final_price']:,.2f} TL",
+            f"🔥 تخفیف اعلامی: {deal['discount']}%",
+            f"🏷️ نوع: {deal['discount_type']}",
             f"🔗 {deal['url']}",
             ""
         ])
@@ -128,13 +175,11 @@ def send_telegram_message(message):
 
 
 def main():
-    product = load_product()
-    deal = analyze_product(product)
+    products = load_products()
+    deals = find_best_deals(products)
 
-    deals = [deal] if deal else []
-    deals.sort(key=lambda item: item["final_price"])
-
-    print(f"Found {len(deals)} matching deals")
+    print(f"Products loaded: {len(products)}")
+    print(f"Matching deals: {len(deals)}")
 
     message = build_message(deals)
     send_telegram_message(message)
